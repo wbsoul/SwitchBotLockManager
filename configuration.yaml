@@ -1,0 +1,18 @@
+lock:
+  - platform: template
+    name: "Home Door Lock"
+    unique_id: home_door_lock
+    value_template: "{{ is_state('input_boolean.lock_1', 'on') }}"
+    lock:
+      service: input_boolean.turn_on
+      target:
+        entity_id: input_boolean.lock_1
+    unlock:
+      service: input_boolean.turn_off
+      target:
+        entity_id: input_boolean.lock_1
+
+input_boolean:
+  lock_1:
+    name: lock_1
+    icon: mdi:lock
