@@ -1,0 +1,33 @@
+---
+secrets: /config/secrets.yaml
+appdaemon:
+  latitude: !secret latitude
+  longitude: !secret longitude
+  elevation: !secret elevation
+  time_zone: !secret localtion
+  plugins:
+    HASS:
+      type: hass
+      ha_url: http://192.168.2.31:8123
+      token: !secret appdaemon_token
+      namespace: default
+      #app_init_delay: 20
+http:
+  url: https://xxxxxxxxxx:5050
+  transport: socketio
+  password: !secret ad_password
+admin:
+api:
+hadashboard:
+logs:
+  error_log:
+    file_name: /config/appdaemon/logs/error.log
+  main_log:
+    file_name: /config/appdaemon/logs/appdaemon.log
+  access_log:
+    file_name: /config/appdaemon/logs/access.log
+  diag_log:
+    file_name: /config/appdaemon/logs/diag.log
+  switchbot:
+    name: switchbot
+    filename: /config/appdaemon/logs/switchbot.log
