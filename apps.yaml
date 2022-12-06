@@ -1,0 +1,13 @@
+---
+hello_world:
+  module: hello
+  class: HelloWorld
+
+switchbot:
+  module: switchbotlockmanager
+  class: SwitchBotLockManager
+  api_token: !secret switchbot_api_token
+  api_secret: !secret switchbot_api_secret
+  smartlock_deviceid: !secret switchbot_smartlock_deviceId
+  boolean_lock_deviceid: "input_boolean.lock_1"
+  log: switchbot
