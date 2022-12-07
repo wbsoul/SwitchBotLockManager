@@ -20,14 +20,6 @@ admin:
 api:
 hadashboard:
 logs:
-  error_log:
-    file_name: /config/appdaemon/logs/error.log
-  main_log:
-    file_name: /config/appdaemon/logs/appdaemon.log
-  access_log:
-    file_name: /config/appdaemon/logs/access.log
-  diag_log:
-    file_name: /config/appdaemon/logs/diag.log
   switchbot:
     name: switchbot
     filename: /config/appdaemon/logs/switchbot.log
