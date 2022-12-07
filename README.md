@@ -1,6 +1,6 @@
 
 # SwitchBotLockManager
-AppDaemon app to integrate SwitchBot Smart Lock into Home Assistant
+AppDaemon app to integrate SwitchBot Smart Lock into Home Assistant. For this to work, you need to enable Cloud Services for the lock after connecting a SwitchBot Hub-mini in your network.
 
  1. Installl AppDaemon Addon on Home assistant
  2. Create a long-lived Access Token on HA, then add it in the **secrets.yaml** as: ***appdaemon_token***
