@@ -10,4 +10,5 @@ switchbot:
   api_secret: !secret switchbot_api_secret
   smartlock_deviceid: !secret switchbot_smartlock_deviceId
   boolean_lock_deviceid: "input_boolean.lock_1"
+  status_update_interval_minutes: 2
   log: switchbot
