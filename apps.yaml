@@ -11,4 +11,5 @@ switchbot:
   smartlock_deviceid: !secret switchbot_smartlock_deviceId
   boolean_lock_deviceid: "input_boolean.lock_1"
   status_update_interval_minutes: 2
+  push_notifiy_intity: "notify/mobile_app_lya_l29"
   log: switchbot
