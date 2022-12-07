@@ -21,9 +21,20 @@ AppDaemon app to integrate SwitchBot Smart Lock into Home Assistant
  7. Add the HA entities into **/CONFIG/configuration.yaml** by adding the conetnts from this repo.
  8. modify **/CONFIG/appdaemon/apps/apps.yaml** by adding the conetnts from this repo.
  9. create **/CONFIG/appdaemon/apps/switchbotlockmanager.py** by using the conetnts from this repo.
- 10. to get the ***switchbot_smartlock_deviceId***, uncomment the lines below in **switchbotlockmanager.py**, and the logs will show all your devises with devecieid for each.
+ 10. to get the ***switchbot_smartlock_deviceId***, uncomment the lines below in **switchbotlockmanager.py**, and the AppDaemon add-on logs will show all your devises with devecieid for each.
 
+ **Lines to uncomment:**
+```
     #devices = self.switchbot.devices()   
     #for device in devices:   
     #print(device)
+```
 
+
+**Sample logs :**
+```
+    2022-12-07 11:53:30.445887 INFO AppDaemon: Reloading Module: /config/appdaemon/apps/switchbotlockmanager.py
+    2022-12-07 11:53:30.453879 INFO AppDaemon: Initializing app switchbot using class SwitchBotLockManager from module switchbotlockmanager
+    HubMini(id=XXXXXXXXXX)
+    SmartLock(id=YYYYYYYYYY)
+```
