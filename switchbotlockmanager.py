@@ -59,7 +59,7 @@ class SwitchBotLockManager(hass.Hass):
         self.call_service(self.push_notifiy_intity, message="Lock ["+self.lock_name+"] UnLocked")
       else:
         self.log("Nothing Done...")
-        self.call_service(self.push_notifiy_intity, message="Nothing done, Lock ["+self.lock_name+"] is already: "+lockstatus["lock_state"] * 60)
+        self.call_service(self.push_notifiy_intity, message="Nothing done, Lock ["+self.lock_name+"] is already: "+lockstatus["lock_state"] )
 
   def pull_status_update(self, kwargs):
     self.log('----------------------pull_status_update')
