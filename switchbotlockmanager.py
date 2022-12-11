@@ -84,5 +84,6 @@ class SwitchBotLockManager(hass.Hass):
     elif  lockstatus["lock_state"] == "locked" or lockstatus["lock_state"] == "unlocked":
       self.log("Nothing to update. lock_state: " +lockstatus["lock_state"])
     else:
+      self.log("Periodic update, Unknown lock_state: "+lockstatus["lock_state"])
       self.call_service(self.push_notifiy_intity, message="Periodic update, Unknown lock_state: "+lockstatus["lock_state"])
 
