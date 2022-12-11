@@ -50,16 +50,15 @@ class SwitchBotLockManager(hass.Hass):
       self.turn_on(self.boolean_lock_deviceid )
       self.log("...Done Locking")
       self.call_service(self.push_notifiy_intity, message="Lock ["+self.lock_name+"] Locked")
+    elif new == "off" and lockstatus["lock_state"] == "locked":
+      self.log("Attempting to UnLock...")
+      self.lock.unlock()
+      self.turn_off(self.boolean_lock_deviceid )
+      self.log("...Done Unlocking")
+      self.call_service(self.push_notifiy_intity, message="Lock ["+self.lock_name+"] UnLocked")
     else:
-      if new == "off" and lockstatus["lock_state"] == "locked":
-        self.log("Attempting to UnLock...")
-        self.lock.unlock()
-        self.turn_off(self.boolean_lock_deviceid )
-        self.log("...Done Unlocking")
-        self.call_service(self.push_notifiy_intity, message="Lock ["+self.lock_name+"] UnLocked")
-      else:
-        self.log("Nothing Done...")
-        self.call_service(self.push_notifiy_intity, message="Nothing done, Lock ["+self.lock_name+"] is already: "+lockstatus["lock_state"] )
+      self.log("Nothing Done...")
+      self.call_service(self.push_notifiy_intity, message="Nothing done, Lock ["+self.lock_name+"] is already: "+lockstatus["lock_state"] )
 
   def pull_status_update(self, kwargs):
     self.log('----------------------pull_status_update')
@@ -74,16 +73,16 @@ class SwitchBotLockManager(hass.Hass):
     boolean_lock_device_state = self.get_state(self.boolean_lock_deviceid)
     self.log("boolean_lock_device_state= " + boolean_lock_device_state)
 
-    if lockstatus["lock_state"] == "locked" or lockstatus["lock_state"] == "unlocked":
-      if lockstatus["lock_state"] == "locked" and boolean_lock_device_state == "off":
-        self.turn_on(self.boolean_lock_deviceid)
-        self.log("status updated to: " +lockstatus["lock_state"])
-      else:
-        if lockstatus["lock_state"] == "unlocked"  and boolean_lock_device_state == "on":
-          self.turn_off(self.boolean_lock_deviceid)
-          self.log("status updated to: " +lockstatus["lock_state"])
-        else:
-          self.log("Nothing to update. lock_state: " +lockstatus["lock_state"])
-        
+    if lockstatus["lock_state"] == "unlocking":
+      self.log("Nothing to update. lock_state: " +lockstatus["lock_state"])
+    elif lockstatus["lock_state"] == "locked" and boolean_lock_device_state == "off":
+      self.turn_on(self.boolean_lock_deviceid)
+      self.log("status updated to: " +lockstatus["lock_state"])
+    elif lockstatus["lock_state"] == "unlocked" and boolean_lock_device_state == "on":
+      self.turn_off(self.boolean_lock_deviceid)
+      self.log("status updated to: " +lockstatus["lock_state"])
+    elif  lockstatus["lock_state"] == "locked" or lockstatus["lock_state"] == "unlocked":
+      self.log("Nothing to update. lock_state: " +lockstatus["lock_state"])
     else:
       self.call_service(self.push_notifiy_intity, message="Periodic update, Unknown lock_state: "+lockstatus["lock_state"])
+
