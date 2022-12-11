@@ -11,7 +11,7 @@ Please forgive my inefficiant code :)
 **Note:** there is a limitation **"10000 times"** on the number of API calls for [SwitchBotAPI request-limit](https://github.com/OpenWonderLabs/SwitchBotAPI#request-limit) , so be thoughtful when you choose the periodic update interval. Especially when you are using the API with other script or app.
 
 ## Installation and configuration instructions:
- 1. Installl AppDaemon Addon on Home assistant
+ 1. Installl AppDaemon Addon on Home assistant from [here](https://github.com/hassio-addons/repository#readme) 
  2. Create a long-lived Access Token on HA, then add it in the **secrets.yaml** as: ***appdaemon_token***
  3. to Get the ***switchbot_api_token*** and ***switchbot_api_secret***, follow the instructions in: https://github.com/OpenWonderLabs/SwitchBotAPI#getting-started
  4. Modify the **/CONFIG/secret.yaml** by adding the conetnts from this repo.
