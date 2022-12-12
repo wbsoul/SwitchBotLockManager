@@ -73,7 +73,7 @@ class SwitchBotLockManager(hass.Hass):
     boolean_lock_device_state = self.get_state(self.boolean_lock_deviceid)
     self.log("boolean_lock_device_state= " + boolean_lock_device_state)
 
-    if lockstatus["lock_state"] == "unlocking":
+    if lockstatus["lock_state"] == "unlocking" or lockstatus["lock_state"] == "locking":
       self.log("Nothing to update. lock_state: " +lockstatus["lock_state"])
     elif lockstatus["lock_state"] == "locked" and boolean_lock_device_state == "off":
       self.turn_on(self.boolean_lock_deviceid)
