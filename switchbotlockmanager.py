@@ -31,9 +31,10 @@ class SwitchBotLockManager(hass.Hass):
     
     #self.switchbot = SwitchBot(token=self.api_token, secret=self.api_secret, nonce=str(uuid.uuid4()))
     self.switchbot = SwitchBot(token=self.api_token, secret=self.api_secret)
-    devices = self.switchbot.devices()
-    for device in devices:
-      print(device)
+    #devices = self.switchbot.devices()
+    #for device in devices:
+    #  print(device)
+    
     self.listen_state(self.state_change, self.boolean_lock_deviceid)
     self.run_every(self.pull_status_update, "now", self.status_update_interval_seconds)
     self.log('----------------------initialize--end')
