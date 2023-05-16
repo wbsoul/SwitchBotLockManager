@@ -19,30 +19,38 @@ class SwitchBotLockManager(hass.Hass):
 
     self.push_notifiy_intity = self.args["push_notifiy_intity"]
     self.log("push_notifiy_intity= " + str(self.push_notifiy_intity))
+
+    self.api_token = self.args["api_token"]
+    self.log("api_token= " + str(self.api_token))
+    self.api_secret = self.args["api_secret"]
+    self.log("api_secret= " + str(self.api_secret))
     
     self.lock_name = self.boolean_lock_deviceid
     self.lock_name = self.lock_name.split('.')[1]
     self.log("lock_name= " + self.lock_name)
-
-    #self.switchbot = SwitchBot(token=self.args["api_token"], secret=self.args["api_secret"], nonce=str(uuid.uuid4()))
-    #devices = self.switchbot.devices()
-    #for device in devices:
-    #  print(device)
-
+    
+    #self.switchbot = SwitchBot(token=self.api_token, secret=self.api_secret, nonce=str(uuid.uuid4()))
+    self.switchbot = SwitchBot(token=self.api_token, secret=self.api_secret)
+    devices = self.switchbot.devices()
+    for device in devices:
+      print(device)
     self.listen_state(self.state_change, self.boolean_lock_deviceid)
     self.run_every(self.pull_status_update, "now", self.status_update_interval_seconds)
+    self.log('----------------------initialize--end')
   
   def state_change(self, entity, attribute, old, new, kwargs):
     self.log('----------------------state_change')
     self.log('old= ' + old)
     self.log('new= ' + new)
 
-    self.switchbot = SwitchBot(token=self.args["api_token"], secret=self.args["api_secret"], nonce=str(uuid.uuid4()))
+    #self.switchbot = SwitchBot(token=self.args["api_token"], secret=self.args["api_secret"], nonce=str(uuid.uuid4()))
+    self.switchbot = SwitchBot(token=self.api_token, secret=self.api_secret)
     self.lock = self.switchbot.device(id=self.args["smartlock_deviceid"])
     lockstatus = self.lock.status()
     self.log("lock_state= " + lockstatus["lock_state"])
     self.log("door_state= " + lockstatus["door_state"])
-    self.log("calibrate= " + str(lockstatus["calibrate"]))
+    self.log("calibrate3= " + str(lockstatus["calibrate"]))
+    self.log("battery= " + str(lockstatus["battery"]))
     
     if new == "on" and lockstatus["lock_state"] == "unlocked":
       self.log("Attempting to Lock...")
@@ -63,12 +71,18 @@ class SwitchBotLockManager(hass.Hass):
   def pull_status_update(self, kwargs):
     self.log('----------------------pull_status_update')
     self.log("Executing periodic update....")
-    self.switchbot = SwitchBot(token=self.args["api_token"], secret=self.args["api_secret"], nonce=str(uuid.uuid4()))
+    #self.switchbot = SwitchBot(token=self.args["api_token"], secret=self.args["api_secret"], nonce=str(uuid.uuid4()))
+    self.switchbot = SwitchBot(token=self.api_token, secret=self.api_secret)
     self.lock = self.switchbot.device(id=self.args["smartlock_deviceid"])
     lockstatus = self.lock.status()
     self.log("lock_state= " + lockstatus["lock_state"])
     self.log("door_state= " + lockstatus["door_state"])
-    self.log("calibrate= " + str(lockstatus["calibrate"]))
+  
+    for value in lockstatus.values():
+      self.log(value)
+  
+    self.log("calibrate4= " + str(lockstatus["calibrate"]))
+    
 
     boolean_lock_device_state = self.get_state(self.boolean_lock_deviceid)
     self.log("boolean_lock_device_state= " + boolean_lock_device_state)
